@@ -1,7 +1,7 @@
 *.hex
 *.out
 *.o
-
+.ipynb_checkpoints
 .cproject
 .idea/
 .project
