@@ -1,0 +1,12 @@
+*.hex
+*.out
+*.o
+
+.cproject
+.idea/
+.project
+.settings/
+cmake-build-debug/
+__pycache__
+
+datasheets/
