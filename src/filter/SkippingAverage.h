@@ -7,17 +7,15 @@
 
 #include <stdint-gcc.h>
 
-#define SA_BIT_DEPTH        2
+#define SA_BIT_DEPTH        3
 #define SA_LENGTH           (1 << SA_BIT_DEPTH)
 
 struct SkippingAverage {
     uint16_t noiseFloor;
     uint16_t accumulator;
     uint16_t data[SA_LENGTH];
-    uint16_t *samplePointer;
+    uint16_t *samplePointer;    // points to the oldest data AND where new data is written
 };
-
-
 
 // EFFECTS: initializes the skipping average filter
 void SkippingAverage_init();

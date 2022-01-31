@@ -16,9 +16,9 @@ class SkippingAverage:
 
 		self.data.append(sample)
 
-		if len(self.data) == self.size + 1:
-			victim = self.data.pop(0)
-			self.average -= victim
+		#if len(self.data) == self.size + 1:
+		victim = self.data.pop(0)
+		self.average -= victim
 
 		self.average += sample
 

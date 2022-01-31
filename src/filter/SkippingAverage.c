@@ -8,7 +8,7 @@ struct SkippingAverage SAFilter;
 
 // EFFECTS: increments the buffer pointer or resets to beginning if overrun
 uint16_t *SA_increment_pointer(uint16_t *ptr) {
-    if(ptr++ == SAFilter.data + SA_LENGTH - 1)
+    if(++ptr == SAFilter.data + SA_LENGTH)
         return SAFilter.data;
     else
         return ptr;
