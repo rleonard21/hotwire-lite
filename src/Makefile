@@ -24,3 +24,9 @@ build:
 fuse:
 	# sets the fuses for full swing oscillator, no clock divide
 	$(PROG) -c usbtiny -p m$(MEGA) -U lfuse:w:0xe7:m -U hfuse:w:0xd9:m -U efuse:w:0xff:m
+
+test_sa:
+	gcc tests/skippingAverageTest.c filter/SkippingAverage.c -o test_sa.out
+	./test_sa.out > .test1.txt
+	python3 tests/skippingAverageCorrect.py > .test2.txt
+	diff -q .test1.txt .test2.txt
