@@ -4,21 +4,19 @@
 
 #include "SkippingAverage.h"
 
-struct SkippingAverage SAFilter;
+static struct SkippingAverage SAFilter;
 
 // EFFECTS: increments the buffer pointer or resets to beginning if overrun
-uint16_t *SA_increment_pointer(uint16_t *ptr) {
-    if(++ptr == SAFilter.data + SA_LENGTH)
-        return SAFilter.data;
-    else
-        return ptr;
+static void SA_increment_head() {
+    if(++SAFilter.samplePointer == SAFilter.data + SA_LENGTH)
+        SAFilter.samplePointer = SAFilter.data;
 }
 
 // EFFECTS: adds a new sample to the buffer and overwrites and returns oldest sample
-uint16_t SA_LIFO_update(uint16_t sample) {
+static uint16_t SA_LIFO_update(uint16_t sample) {
     uint16_t victim = *SAFilter.samplePointer;
     *SAFilter.samplePointer = sample;
-    SAFilter.samplePointer = SA_increment_pointer(SAFilter.samplePointer);
+    SA_increment_head();
 
     return victim;
 }
