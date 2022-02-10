@@ -1,3 +1,5 @@
+*.swp
+*-bak
 *.hex
 *.out
 *.o
