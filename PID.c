@@ -28,10 +28,10 @@ volatile uint8_t PID_enabled = 0;
 
 float P_gain = 0.20;
 float I_gain = 0.05;
-float D_gain = 0.10;
+float D_gain = 0.00;
 
 // setting in mWatts
-float setting = 10000.0f;
+float setting = 15000.0f;
 
 // EFFECTS: initializes the PID controller
 void PID_init() {

@@ -5,6 +5,8 @@
  * Author : Robert
  */ 
 
+#define FIRMWARE_VERSION "v0.1.0"
+
 #define F_CPU 20000000
 
 #include "Init.h"
@@ -22,6 +24,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+
+#define DEBUG_MESSAGE "HOTWIRE LITE; DEBUG ENABLED;\r\nFIRMWARE VERSION "
 
 int main(void) {
 	
@@ -41,27 +45,34 @@ int main(void) {
 		Button_disable();
 		UART_enable_tx();
 		UART_enable_rx();
+		_delay_ms(1000);
+		UART_puts("FUCK YOU UART\r\n");
+		_delay_ms(1000);
+		UART_puts(DEBUG_MESSAGE);
+		UART_puts(FIRMWARE_VERSION);
+		UART_puts("\r\n");
+		_delay_ms(1000);
+		PWM_start();
 	} else {
 		LED_init();
 	}
 	
 	sei();
-	PWM_start();
 	
 	// main application
     while (1) {
 		// operate hot wire state based on button
-// 		if(Button_read()) {
-// 			if(PWM_is_enabled())
-// 				PWM_stop();
-// 			else
-// 				PWM_start();
-// 		}
-
-		Power_print_measurements();
+		if(Button_read() && !debug_mode) {
+			if(PWM_is_enabled())
+				PWM_stop();
+			else
+				PWM_start();
+		}
 		
-		if(debug_mode)
+		if(debug_mode) {
 			Calibrate_update();
+			Power_print_measurements();
+		}
 	}
 		
 	return 1;

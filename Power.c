@@ -59,7 +59,7 @@ float Power_get_power() {
 // EFFECTS: updates the voltage divider multiplier with a calibration value
 void Power_calibrate_divider(uint8_t input) {
 	float c = (float)(input) / 100.0f; // example: 17 -> 0.17
-	voltage_divider_multiplier = 2.85f + c; // assuming 5% resistors, divider will never be worse than 2.85x. c is the calibration value.
+	voltage_divider_multiplier = 2.50f + c;
 }
 
 // EFFECTS: prints the most recent measurements
@@ -67,13 +67,17 @@ void Power_print_measurements() {
 	// only prints data when new measurements have been taken, i.e. @1kHz
 	// prevents using UART in the interrupt, also prevents using UART while measuring to prevent crosstalk
 	if(data_ready) {
+		uint16_t duty_cycle = (uint16_t)(PWM_get_duty_cycle() * 1000.0f);
+		
 		Debug_write_data(previous_voltage);
-		UART_puts(",");
+		UART_putc(',');
 		Debug_write_data(previous_current);
-		UART_puts(",");
+		UART_putc(',');
 		Debug_write_data(previous_power);
-		UART_puts("\n");
-	
+		UART_putc(',');
+		Debug_write_data(duty_cycle);
+		UART_puts("\r\n");
+		
 		data_ready = 0;
 	}
 }
