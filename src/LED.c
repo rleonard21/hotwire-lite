@@ -11,6 +11,7 @@
 
 void LED_init() {
 	PORTA.DIRSET = PIN6_bm;
+	PORTA.PIN6CTRL &= ~PORT_PULLUPEN_bm;
 }
 
 void LED_on() {
@@ -23,4 +24,13 @@ void LED_off() {
 
 void LED_toggle() {
 	PORTA.IN = PIN6_bm;
+}
+
+void LED_input_init() {
+	PORTA.DIRCLR = PIN6_bm;
+	PORTA.PIN6CTRL |= PORT_PULLUPEN_bm;
+}
+
+uint8_t LED_input_is_low() {
+	return (PORTA.IN & PIN6_bm) >> PIN6_bp;
 }

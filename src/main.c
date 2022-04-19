@@ -5,6 +5,8 @@
  * Author : Robert
  */ 
 
+#define FIRMWARE_VERSION "v0.1.0"
+
 #define F_CPU 20000000
 
 #include "Init.h"
@@ -17,13 +19,13 @@
 #include "SysTick.h"
 #include "LED.h"
 #include "Calibrate.h"
+#include "PID.h"
 
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-
-
+#define DEBUG_MESSAGE "HOTWIRE LITE; DEBUG ENABLED;\r\nFIRMWARE VERSION "
 
 int main(void) {
 	
@@ -31,27 +33,48 @@ int main(void) {
 	Init_clock_setup();
 	SysTick_init();
 	UART_init(F_CPU);
-	LED_init();
+	
 	ADC_init();
-// 	Button_init();
+ 	Button_init();
+	PID_init();
 	PWM_init();
+	
+	uint8_t debug_mode = Debounce_read() == 1; // return 1 if the button is currently held low
+	debug_mode = 1;
+	if(debug_mode) {
+		Button_disable();
+		UART_enable_tx();
+		UART_enable_rx();
+		_delay_ms(1000);
+		UART_puts("FUCK YOU UART\r\n");
+		_delay_ms(1000);
+		UART_puts(DEBUG_MESSAGE);
+		UART_puts(FIRMWARE_VERSION);
+		UART_puts("\r\n");
+		_delay_ms(1000);
+		PWM_start();
+	} else {
+		LED_init();
+	}
+	
 	sei();
 	
-	// enable UART
-	UART_enable_tx();
-	UART_enable_rx();
-	PWM_start(); 
-	
+	// main application
     while (1) {
-// 		if(Button_read(BUTTON_IS_PRESSED)) {
-// 			if(PWM_is_enabled())
-// 				PWM_stop();
-// 			else
-// 				PWM_start();
-// 		}
+		// operate hot wire state based on button
+		if(Button_read() && !debug_mode) {
+			if(PWM_is_enabled())
+				PWM_stop();
+			else
+				PWM_start();
+		}
 		
- 		Calibrate_update();
-
+		if(debug_mode) {
+			Calibrate_update();
+			Power_print_measurements();
+		}
 	}
+		
+	return 1;
 }
 

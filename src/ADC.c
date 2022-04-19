@@ -14,7 +14,7 @@ void ADC_init() {
 	ADC0.CTRLA |= ADC_RESSEL_10BIT_gc | ADC_ENABLE_bm;
 	
 	// select VDD as the voltage reference and set ADC_clock=sys_clock/256
-	ADC0.CTRLC |= ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV256_gc;
+	ADC0.CTRLC |= ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV32_gc;
 }
 
 uint16_t ADC_single_read(char channel) {

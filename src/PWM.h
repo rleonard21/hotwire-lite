@@ -30,7 +30,15 @@ void PWM_update_duty_percent(uint8_t percent);
 // EFFECTS: toggles the PWM
 void PWM_toggle();
 
+// EFFECTS: returns the setting of the PWM timer
+uint16_t PWM_get_setting();
+
+// EFFECTS: returns the duty cycle
+float PWM_get_duty_cycle();
+
 // EFFECTS: returns 0 if the PWM is currently disabled
 uint8_t PWM_is_enabled();
+
+void PWM_PID_input(int16_t value);
 
 #endif /* PWM_H_ */

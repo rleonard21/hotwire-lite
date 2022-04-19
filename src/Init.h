@@ -11,6 +11,7 @@
 
 #include <avr/io.h>
 
+
 #define UNLOCK_CCP() CPU_CCP = CCP_IOREG_gc;
 
 // EFFECTS: Sets the clock to 20MHz with no prescaler

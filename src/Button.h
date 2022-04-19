@@ -27,10 +27,17 @@ const uint8_t debounce_max_ticks;
 // EFFECTS: starts the debounce service and initializes the button
 void Button_init();
 
+uint8_t Debounce_read();
+
+uint8_t Button_is_held();
+
 // EFFECTS:  reads the button state and updates the history of the input
 void Debounce_update_service();
 
 // EFFECTS: returns true if the button is in the given state
-uint8_t Button_read(uint8_t read_type);
+uint8_t Button_read();
+
+// EFFECTS: disables the button hardware
+void Button_disable();
 
 #endif //HOTWIRE_CONTROLLER_V1_1_DEBOUNCE_H

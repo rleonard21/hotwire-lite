@@ -9,8 +9,8 @@
 #ifndef CALIBRATE_H_
 #define CALIBRATE_H_
 
+#include <stdint.h>
+
 void Calibrate_update();
-
-
 
 #endif /* CALIBRATE_H_ */

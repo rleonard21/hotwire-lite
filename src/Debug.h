@@ -14,12 +14,7 @@
 #include "UART.h"
 
 
-void Debug_write_data(uint16_t data) {
-	char buf[5];
-	utoa(data, buf, 10);
-	UART_puts(buf);
-	UART_putc('\n');
-}
+void Debug_write_data(uint16_t data);
 
 
 #endif /* DEBUG_H_ */

@@ -8,13 +8,17 @@
 #include "Calibrate.h"
 #include "UART.h"
 #include "PWM.h"
+#include "PID.h"
+#include "LED.h"
+#include "Power.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
 #define CMD_SIZE	3
 
-#define UPDATE_PWM_DUTY		'D'
+#define UPDATE_POWER		'P'
+#define UPDATE_RESISTOR		'C'
 
 // CMD[0] = command type
 // CMD[1] = data high 8
@@ -24,13 +28,21 @@ volatile char calibrate_cmd[CMD_SIZE];
 volatile uint8_t cmd_idx = 0;
 volatile uint8_t pending_cmd = 0;
 
-volatile char rx_char = '0';
+static uint8_t to_char(volatile char *a) {
+	return (a[1] - '0') * 10 + a[2] - '0';
+}
 
 void execute_cmd() {
-	if(calibrate_cmd[0] == UPDATE_PWM_DUTY) {
-		UART_puts("+ updated duty cycle\n");
-		uint8_t duty = (calibrate_cmd[1] - '0') * 10 + calibrate_cmd[2] - '0'; // convert from two-digit ASCII to an integer, 00-99
-		PWM_update_duty_percent(duty);
+	if(calibrate_cmd[0] == UPDATE_POWER) {
+		UART_puts("+ updated power setting\n");
+		uint8_t power = to_char(calibrate_cmd);
+		PID_update_setting(power);
+	}
+	
+	if(calibrate_cmd[0] == UPDATE_RESISTOR) {
+		UART_puts("+ calibrated resistor setting\n");
+		uint8_t c = to_char(calibrate_cmd);
+		Power_calibrate_divider(c);
 	}
 }
 
