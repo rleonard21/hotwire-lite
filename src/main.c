@@ -40,14 +40,11 @@ int main(void) {
 	PWM_init();
 	
 	uint8_t debug_mode = Debounce_read() == 1; // return 1 if the button is currently held low
-	debug_mode = 1;
+
 	if(debug_mode) {
 		Button_disable();
 		UART_enable_tx();
 		UART_enable_rx();
-		_delay_ms(1000);
-		UART_puts("FUCK YOU UART\r\n");
-		_delay_ms(1000);
 		UART_puts(DEBUG_MESSAGE);
 		UART_puts(FIRMWARE_VERSION);
 		UART_puts("\r\n");
