@@ -13,8 +13,10 @@ void ADC_init() {
 	// set ADC to 10 bit resolution and enable the peripheral
 	ADC0.CTRLA |= ADC_RESSEL_10BIT_gc | ADC_ENABLE_bm;
 	
+	ADC0.CTRLB |= 0x02;
+	
 	// select VDD as the voltage reference and set ADC_clock=sys_clock/256
-	ADC0.CTRLC |= ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV32_gc;
+	ADC0.CTRLC |= ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV16_gc;
 }
 
 uint16_t ADC_single_read(char channel) {
@@ -28,5 +30,5 @@ uint16_t ADC_single_read(char channel) {
 	while((ADC0.INTFLAGS & ADC_RESRDY_bm) == 0);
 	
 	// return the result when ready
-	return ADC0.RES;
+	return ADC0.RES >> 2;
 }

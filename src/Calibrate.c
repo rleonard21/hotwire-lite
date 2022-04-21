@@ -11,6 +11,7 @@
 #include "PID.h"
 #include "LED.h"
 #include "Power.h"
+#include "EEPROM.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -32,15 +33,23 @@ static uint8_t to_char(volatile char *a) {
 	return (a[1] - '0') * 10 + a[2] - '0';
 }
 
+void Calibrate_init() {
+	if(!EEPROM_was_device_calibrated()) {
+		EEPROM_save_float(1000.0f, POWER_SETTING_ADDR);
+		EEPROM_save_float(3.0f, RESISTOR_CALIBRATION_ADDR);
+	}
+}
+
 void execute_cmd() {
+
 	if(calibrate_cmd[0] == UPDATE_POWER) {
-		UART_puts("+ updated power setting\n");
+		UART_puts("ACK\r\n");
 		uint8_t power = to_char(calibrate_cmd);
 		PID_update_setting(power);
 	}
 	
 	if(calibrate_cmd[0] == UPDATE_RESISTOR) {
-		UART_puts("+ calibrated resistor setting\n");
+		UART_puts("ACK\r\n");
 		uint8_t c = to_char(calibrate_cmd);
 		Power_calibrate_divider(c);
 	}
@@ -55,9 +64,16 @@ void Calibrate_update() {
 
 ISR(USART0_RXC_vect) {
 	// move the UART char into the packet buffer
-	calibrate_cmd[cmd_idx] = UART_getc();
+	char c = UART_getc();
 	
-	if(cmd_idx++ == CMD_SIZE) {
+	if(c == '\r' || c == '\n') {
+		USART0.STATUS |= USART_RXSIF_bm;
+		return;
+	}
+	
+	calibrate_cmd[cmd_idx] = c;
+	
+	if(++cmd_idx == CMD_SIZE) {
 		cmd_idx = 0;
 		pending_cmd = 1;
 	}

@@ -7,6 +7,7 @@
 
 #include "SysTick.h"
 #include "Button.h"
+#include "Calibrate.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>

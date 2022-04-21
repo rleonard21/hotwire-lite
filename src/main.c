@@ -38,6 +38,8 @@ int main(void) {
  	Button_init();
 	PID_init();
 	PWM_init();
+	Power_init();
+	Calibrate_init();
 	
 	uint8_t debug_mode = Debounce_read() == 1; // return 1 if the button is currently held low
 

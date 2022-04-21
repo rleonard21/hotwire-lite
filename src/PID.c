@@ -15,6 +15,7 @@
 #include "PWM.h"
 #include "Power.h"
 #include "UART.h"
+#include "EEPROM.h"
 
 #define MAX_PID    (100)
 #define MIN_PID    (-100)
@@ -31,11 +32,16 @@ float I_gain = 0.05;
 float D_gain = 0.00;
 
 // setting in mWatts
-float setting = 15000.0f;
+volatile float setting = 5000.0f;
+
+static void PID_init_setting() {
+	setting = EEPROM_read_float(POWER_SETTING_ADDR);
+}
 
 // EFFECTS: initializes the PID controller
 void PID_init() {
 	PID_enabled = 1;
+	PID_init_setting();
 }
 
 void PID_P_error(float set, float measure) {
@@ -129,4 +135,6 @@ void PID_enable() {
 
 void PID_update_setting(uint8_t setting_input) {
 	setting = (float)(setting_input) * 1000.0f;
+	
+	EEPROM_save_float(setting, POWER_SETTING_ADDR);
 }

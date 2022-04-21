@@ -9,7 +9,7 @@
 #include <avr/io.h>
 
 #define UROUND(x) ((2UL*(x)+1)/2)
-#define BAUD_RATE		921600
+#define BAUD_RATE		500000
 
 #define UART_TX_PORT	PORTA
 #define UART_TX_bm		PIN6_bm

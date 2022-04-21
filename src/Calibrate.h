@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 
+void Calibrate_init();
 void Calibrate_update();
 
 #endif /* CALIBRATE_H_ */

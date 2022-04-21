@@ -9,16 +9,22 @@
 #include "UART.h"
 #include "Debug.h"
 #include "PWM.h"
+#include "EEPROM.h"
 #include <stdint.h>
 
 static const float adc_scalar = 4.8828f; // vcc / 2^10 * 1000 = 5/1024 * 1000
-static float voltage_divider_multiplier = 3.0f; // divider = true_vcc / measured_vcc ; calibrates for resistor tolerance
+volatile float voltage_divider_multiplier = 3.0f; // divider = true_vcc / measured_vcc ; calibrates for resistor tolerance
 
 static float previous_voltage = 0.0f;
 static float previous_current = 0.0f;
 static float previous_power = 0.0f;
 
 static uint8_t data_ready = 0;
+
+// EFFECTS: initializes the power measurement
+void Power_init() {
+	voltage_divider_multiplier = EEPROM_read_float(RESISTOR_CALIBRATION_ADDR);
+}
 
 // EFFECTS: returns the ADC reading for the current
 static inline uint16_t Power_get_current_raw() {
@@ -60,6 +66,8 @@ float Power_get_power() {
 void Power_calibrate_divider(uint8_t input) {
 	float c = (float)(input) / 100.0f; // example: 17 -> 0.17
 	voltage_divider_multiplier = 2.50f + c;
+	
+	EEPROM_save_float(voltage_divider_multiplier, RESISTOR_CALIBRATION_ADDR);
 }
 
 // EFFECTS: prints the most recent measurements

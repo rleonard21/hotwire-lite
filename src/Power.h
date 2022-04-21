@@ -15,6 +15,9 @@
 #define ADC_VOLT_CHANNEL	ADC_MUXPOS_AIN2_gc
 #define ADC_AMP_CHANNEL		ADC_MUXPOS_AIN3_gc
 
+// EFFECTS: initializes the power measurement
+void Power_init();
+
 // returns the measured voltage in mVolts
 float Power_get_voltage();
 
