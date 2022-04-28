@@ -64,10 +64,17 @@ C_value = round(3.024 - 2.50, 2) * 100 = 52
 calibration command: "C52"
 ```
 ## Images
-![The assembled v1.0 hardware.](https://imgur.com/zvXHNeN)
-![A close up of the v1.0 hardware under test.](https://imgur.com/tFVCLMT)
-![The four revisions of the hotwire controller project.](https://imgur.com/LIb4eDc)
-![The calibration station using a power high PCB resistor.](https://imgur.com/TFHVM7W)
+![The assembled v1.0 hardware.](https://i.imgur.com/zvXHNeN.jpg)
+The assembled v1.0 hardware.
+
+![A close up of the v1.0 hardware under test.](https://i.imgur.com/tFVCLMT.jpg)
+A close up of the v1.0 hardware while testing.
+
+![The four revisions of the hotwire controller project.](https://i.imgur.com/LIb4eDc.jpg)
+The four revisions of the hotwire controller project between 2018 (top) and 2022 (bottom).
+
+![The calibration station using a high power PCB resistor.](https://i.imgur.com/TFHVM7W.jpg)
+The calibration station using a high power PCB resistor.
 
 ## References
 [My original hotwire project](https://github.com/rleonard21/hotwire-controller)
