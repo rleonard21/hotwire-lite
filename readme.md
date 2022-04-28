@@ -12,6 +12,34 @@ right values.
 2. The rotary encoder was a bit delicate when wearing gloves.
 3. The circuit was erroneously running at 244Hz PWM and 14Hz PID rates and took several seconds to settle.
 
+## Project Results
+
+| Cost (single)     | Original Hotwire | Hotwire Lite |
+|-------------------|------------------|--------------|
+| PCB               | $5 (ALLPCB)      | $5 (PCBWay)  |
+| Electrical        | ~$38             | $5.18        |
+| Mechanical        | ~$20             | $0           |
+| Total cost        | ~$63             | $10.18       |
+| Bulk cost  (100)  | ?                | $3.71        |
+| PCB assembly time | 1-1.5 hour       | <20 minutes  |
+| Machining time    | 2-3 hours        | N/A          |
+
+| Manufacturing Ease | Original Hotwire | Hotwire Lite |
+|--------------------|------------------|--------------|
+| # SMD              | 33               | 19           |
+| # PTH              | 8                | 0            |
+| Screws             | Yes              | No           |
+| Machining required | Yes              | No           |
+
+| Performance            | Original Hotwire | Hotwire Lite       |
+|------------------------|------------------|--------------------|
+| Output accuracy        | 0.5W             | 0.01W (calibrated) |
+| Settling time          | seconds          | milliseconds       |
+| PWM frequency          | 244Hz            | 1024Hz             |
+| Control loop frequency | 14Hz             | 1KHz               |
+| Calibration            | No               | Yes                |
+| Data output            | No               | Yes                |
+
 ## Filtering
 The PID controller needs to know the average current running through the
 wire to effectively control the power output. The output is really a square
