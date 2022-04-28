@@ -13,7 +13,7 @@ right values.
 3. The circuit was erroneously running at 244Hz PWM and 14Hz PID rates and took several seconds to settle.
 
 ## Project Results
-
+#### Product Costs
 | Cost (single)     | Original Hotwire | Hotwire Lite |
 |-------------------|------------------|--------------|
 | PCB               | $5 (ALLPCB)      | $5 (PCBWay)  |
@@ -24,6 +24,7 @@ right values.
 | PCB assembly time | 1-1.5 hour       | <20 minutes  |
 | Machining time    | 2-3 hours        | N/A          |
 
+#### Ease of Manufacturing
 | Manufacturing Ease | Original Hotwire | Hotwire Lite |
 |--------------------|------------------|--------------|
 | # SMD              | 33               | 19           |
@@ -31,6 +32,7 @@ right values.
 | Screws             | Yes              | No           |
 | Machining required | Yes              | No           |
 
+#### Circuit Performance
 | Performance            | Original Hotwire | Hotwire Lite       |
 |------------------------|------------------|--------------------|
 | Output accuracy        | 0.5W             | 0.01W (calibrated) |
@@ -81,6 +83,9 @@ C_value = round(resistor_divider - 2.50, 2) * 100
 
 calibration command = "C{C_value}"
 ```
+
+Alternatively, manipulate the C value until the controller is outputting the correct power
+to the desired accuracy.
 
 #### Calibration Example:
 ```c
