@@ -29,10 +29,12 @@ volatile char calibrate_cmd[CMD_SIZE];
 volatile uint8_t cmd_idx = 0;
 volatile uint8_t pending_cmd = 0;
 
+// EFFECTS: converts a two digit string like "99" into a number like int(99)
 static uint8_t to_char(volatile char *a) {
 	return (a[1] - '0') * 10 + a[2] - '0';
 }
 
+// EFFECTS: initializes the resistor calibration and power setting after first flash
 void Calibrate_init() {
 	if(!EEPROM_was_device_calibrated()) {
 		EEPROM_save_float(1000.0f, POWER_SETTING_ADDR);
@@ -55,6 +57,7 @@ void execute_cmd() {
 	}
 }
 
+// EFFECTS: handles the UART CLI
 void Calibrate_update() {
 	if(pending_cmd) {
 		execute_cmd();

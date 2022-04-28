@@ -13,6 +13,7 @@ void ADC_init() {
 	// set ADC to 10 bit resolution and enable the peripheral
 	ADC0.CTRLA |= ADC_RESSEL_10BIT_gc | ADC_ENABLE_bm;
 	
+	// average two samples per conversion
 	ADC0.CTRLB |= 0x02;
 	
 	// select VDD as the voltage reference and set ADC_clock=sys_clock/256

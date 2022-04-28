@@ -5,7 +5,7 @@
  * Author : Robert
  */ 
 
-#define FIRMWARE_VERSION "v0.1.0"
+#define FIRMWARE_VERSION "v1.0.0"
 
 #define F_CPU 20000000
 
@@ -34,12 +34,12 @@ int main(void) {
 	SysTick_init();
 	UART_init(F_CPU);
 	
+	Calibrate_init();
 	ADC_init();
  	Button_init();
 	PID_init();
 	PWM_init();
 	Power_init();
-	Calibrate_init();
 	
 	uint8_t debug_mode = Debounce_read() == 1; // return 1 if the button is currently held low
 
