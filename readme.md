@@ -35,8 +35,8 @@ right values.
 #### Circuit Performance
 | Performance            | Original Hotwire | Hotwire Lite       |
 |------------------------|------------------|--------------------|
-| Output accuracy        | 0.5W             | 0.01W (calibrated) |
-| Settling time          | seconds          | milliseconds       |
+| Output accuracy @ 25W  | -1.15W           | 0.02W (calibrated) |
+| Settling time          | ~8 seconds       | milliseconds       |
 | PWM frequency          | 244Hz            | 1024Hz             |
 | Control loop frequency | 14Hz             | 1KHz               |
 | Calibration            | No               | Yes                |
