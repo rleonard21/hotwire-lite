@@ -36,7 +36,8 @@ The units are `mV,mA,mW,%*1000`.
 
 ## Calibration 
 ### Calibration Interface
-The circuit can be calibrated over UART using a very basic, lightweight interface.
+The circuit can be calibrated over UART using a very basic, lightweight interface. The user just needs
+to send a three character command over the UART interface, which currently runs at 500k buad.
 
 ```
 C00-C99: calibrate the voltage divider to account for resistor tolerance. C50 is for ideal resistors.
@@ -46,7 +47,7 @@ P00-P99: set the power output, where the two digit number is the output in watts
 The resistor calibration is performed by measuring the true output voltage, reading the measured voltage over UART,
 and performing the following calculation:
 
-```
+```c
 resistor_divider = vcc_true / vcc_measured / 3
 C_value = round(resistor_divider - 2.50, 2) * 100
 
@@ -54,11 +55,19 @@ calibration command = "C{C_value}"
 ```
 
 #### Calibration Example:
-```
-vcc_true = 13.993		// the voltage as measured by the multimeter
-vcc_measured = 13.881	// the voltage as output over UART
+```c
+vcc_true = 13.993  // the voltage as measured by the multimeter
+vcc_measured = 13.881  // the voltage as output over UART
 resistor_divider = 13.993 / 13.881 / 3 = 3.024
 C_value = round(3.024 - 2.50, 2) * 100 = 52
 
 calibration command: "C52"
 ```
+## Images
+![The assembled v1.0 hardware.](https://imgur.com/zvXHNeN)
+![A close up of the v1.0 hardware under test.](https://imgur.com/tFVCLMT)
+![The four revisions of the hotwire controller project.](https://imgur.com/LIb4eDc)
+![The calibration station using a power high PCB resistor.](https://imgur.com/TFHVM7W)
+
+## References
+[My original hotwire project](https://github.com/rleonard21/hotwire-controller)
