@@ -1,10 +1,10 @@
 # Hotwire Lite
 ## Overview
-My original hotwire controller was relatively expensive per unit (~$60!).
-After using the circuit extensively in the shop, I realized that the cost
-could be reduced in several ways. The goal of this project is to build
-the cheapest controller without compromising the original constant-power
-functionality.
+My [original hotwire controller design](https://github.com/rleonard21/hotwire-controller) was my first real embedded systems project and
+had several shortcomings as a result. The goal of this "lite" project was to design and build
+the cheapest version of the original project while significantly improving its performance.
+
+(The [original project](https://github.com/rleonard21/hotwire-controller/blob/master/README.md) has some nice pictures of the project in action.)
 
 ## Observations
 1. The power, LCD, and PID settings were never changed after finding the
@@ -21,7 +21,7 @@ right values.
 | Mechanical        | ~$20             | $0           |
 | Total cost        | ~$63             | $10.18       |
 | Bulk cost  (100)  | ?                | $3.71        |
-| PCB assembly time | 1-1.5 hour       | <20 minutes  |
+| PCB assembly time | 1-1.5 hours      | <20 minutes  |
 | Machining time    | 2-3 hours        | N/A          |
 
 #### Ease of Manufacturing
@@ -35,7 +35,7 @@ right values.
 #### Circuit Performance
 | Performance            | Original Hotwire | Hotwire Lite       |
 |------------------------|------------------|--------------------|
-| Output accuracy @ 25W  | -1.15W           | 0.02W (calibrated) |
+| Output accuracy @ 25W  | -4.6%            | 0.08%              |
 | Settling time          | ~8 seconds       | milliseconds       |
 | PWM frequency          | 244Hz            | 1024Hz             |
 | Control loop frequency | 14Hz             | 1KHz               |
