@@ -6,6 +6,8 @@ the cheapest version of the original project while significantly improving its p
 
 (The [original project](https://github.com/rleonard21/hotwire-controller/blob/master/README.md) has some nice pictures of the project in action.)
 
+![A close up of the v1.0 hardware under test.](https://i.imgur.com/tFVCLMT.jpg)
+
 ## Observations
 1. The power, LCD, and PID settings were never changed after finding the
 right values.
